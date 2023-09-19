@@ -1,0 +1,46 @@
+fetch('https://api.ipify.org?format=json')
+    .then(res => res.json())
+    .then(data => ipdetail(data.ip));
+
+const ipdetail = (getIp) => {
+    const ip = getIp + "";
+    fetch(`https://ipinfo.io/widget/demo/${ ip }`)
+    fetch(`https://ipapi.co/${ ip }/json/`)
+        .then(res => res.json())
+        .then(data => handleDetails(data))
+        .catch(error => {
+            const detailsContainer = document.getElementById('details');
+            detailsContainer.innerHTML = `<h1> Something wrong! Please try again after some time!</h1>`;
+        });
+}
+
+const handleDetails = (data) => {
+    const detailsContainer = document.getElementById('details');
+    const details = document.createElement('div');
+    details.className = 'details-container'
+    details.innerHTML = `
+    <h1 class="m-2">Your Ip Address: ${data.ip}</h1>
+                <h3 class="m-1">Your Ip version: ${data.version}</h3>
+                <h3 class="m-1">City: ${data.city}</h3>
+                <h3 class="m-1">Region: ${data.region}</h3>
+                <h3 class="m-1">Region Code: ${data.region_code}</h3>
+                <h3 class="m-1">Country: ${data.country_name}</h3>
+                <h3 class="m-1">Country Code: ${data.country_code}</h3>
+                <h3 class="m-1">Postal Code: ${data.postal}</h3>
+                <h3 class="m-1">Latitude: ${data.latitude}</h3>
+                <h3 class="m-1">Longitude: ${data.longitude}</h3>
+                <h3 class="m-1">Timezone: ${data.timezone}</h3>
+                <h3 class="m-1">Currency: ${data.currency}</h3>
+                <h3 class="m-1">Country area: ${data.country_area}</h3>
+                <h3 class="m-1">Country Population: ${data.country_population}</h3>
+                <h3 class="m-1">Route: ${data.route}</h3>
+                <h3 class="m-1">ASN: ${data.asn}</h3>
+                <h3 class="m-1">ISP: ${data.org}</h3>
+                <h3 class="m-1">VPN: ${data.vpn}</h3>
+                <h3 class="m-1">PROXY: ${data.proxy}</h3>
+                <h3 class="m-1">TOR: ${data.tor}</h3>
+                <h3 class="m-1">RELAY: ${data.relay}</h3>
+                <h3 class="m-1">HOSTING: ${data.hosting}</h3>
+    `;
+    detailsContainer.appendChild(details);
+                  }
